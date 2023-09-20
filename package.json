@@ -3,6 +3,10 @@
   "version": "1.0.2",
   "description": "A CLI tool to inspect RabbitMQ messages",
   "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cr0wst/rsnoop.git"
+  },
   "scripts": {
     "start": "ts-node src/index.ts",
     "build": "tsc"
