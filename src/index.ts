@@ -9,7 +9,7 @@ import chalk from "chalk";
 async function main() {
   const program = new Command();
   program
-    .version("0.0.1")
+    .version("1.0.2")
     .description("A CLI for snooping on Rabbit Exchanges")
     .option("-u, --url <url>", "The URL of the RabbitMQ server")
     .option("-p, --port <port>", "The port of the RabbitMQ server")
