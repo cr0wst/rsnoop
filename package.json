@@ -1,7 +1,7 @@
 {
   "name": "@cr0wst/rsnoop",
-  "version": "0.0.1",
-  "description": "",
+  "version": "1.0.0",
+  "description": "A CLI tool to inspect RabbitMQ messages",
   "main": "dist/index.js",
   "scripts": {
     "start": "ts-node src/index.ts",
@@ -12,14 +12,33 @@
   },
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "LICENSE.md"
   ],
   "publishConfig": {
     "access": "public"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "RabbitMQ",
+    "CLI",
+    "monitoring",
+    "messages",
+    "Exchange",
+    "tool",
+    "colorized",
+    "output",
+    "temporary queues",
+    "message monitoring",
+    "message tracking",
+    "message inspection",
+    "message analysis",
+    "message logging",
+    "message management",
+    "message visualization",
+    "message debugging"
+  ],
+  "author": "Steve Crow",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.6.3",
     "prettier": "^3.0.3",
@@ -28,6 +47,7 @@
   },
   "dependencies": {
     "@cloudamqp/amqp-client": "^3.1.1",
+    "chalk": "^4.1.2",
     "commander": "^11.0.0",
     "json-colorizer": "^2.2.2"
   }

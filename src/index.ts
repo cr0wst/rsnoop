@@ -4,6 +4,7 @@ import { Command } from "commander";
 import { AMQPClient } from "@cloudamqp/amqp-client";
 import { randomUUID } from "crypto";
 import colorize from "json-colorizer";
+import chalk from "chalk";
 
 async function main() {
   const program = new Command();
@@ -35,30 +36,39 @@ async function main() {
 }
 
 async function runAmqpListener(rabbitConfig: any) {
-  console.log("Connecting to RabbitMQ");
   const uri = `${rabbitConfig.useSSL ? "amqps" : "amqp"}://${rabbitConfig.username}:${
     rabbitConfig.password
   }@${rabbitConfig.url}:${rabbitConfig.port}`;
+
   const amqp = new AMQPClient(uri);
 
   const queueName = `rabbit-snoop-${randomUUID().toString()}`;
+
+  console.log(`Establishing Connection to ${rabbitConfig.url}:${rabbitConfig.port}`);
   const conn = await amqp.connect();
   const channel = await conn.channel();
 
-  console.log(`Creating queue: ${queueName}`);
+  console.log(`Creating Queue ${queueName}`);
 
   const queue = await channel.queue(queueName, { exclusive: true, autoDelete: true });
 
-  console.log(`Binding ${queueName} to ${rabbitConfig.exchange}`);
+  console.log(`Binding Queue: ${queueName} to Exchange: ${rabbitConfig.exchange}`);
   await queue.bind(rabbitConfig.exchange, rabbitConfig.routingKey);
 
-  const consumer = await queue.subscribe({ noAck: true }, async (msg) => {
-    console.log("=".repeat(process.stdout.columns));
-    console.log(new Date().toISOString());
-    console.log("Headers");
-    console.log(`${colorize(JSON.stringify(msg.properties.headers))}`);
-    console.log("Body");
-    console.log(`${colorize(msg.bodyToString() ?? "{}")}`);
+  console.log("-".repeat(process.stdout.columns));
+  let messageCount = 0;
+  await queue.subscribe({ noAck: true }, async (msg) => {
+    messageCount++;
+
+    const body = isValidJson(msg.bodyString())
+      ? JSON.parse(msg.bodyString() ?? "")
+      : msg.bodyString();
+    const result = {
+      headers: msg.properties.headers,
+      body,
+    };
+    console.log(`${chalk.bold(`[Message ${messageCount}]`)} @ ${new Date().toISOString()}]`);
+    console.log(`${colorize(JSON.stringify(result))}`);
   });
 }
 
@@ -66,3 +76,14 @@ main().catch((err) => {
   console.error(err);
   process.exit(1);
 });
+
+function isValidJson(str: string | null) {
+  if (str === null) return false;
+
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
+}
