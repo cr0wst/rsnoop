@@ -1,14 +1,21 @@
 {
-  "name": "rabbit-snoop",
-  "version": "1.0.0",
+  "name": "@cr0wst/rsnoop",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "start": "ts-node src/index.ts",
     "build": "tsc"
   },
   "bin": {
     "rsnoop": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
   },
   "keywords": [],
   "author": "",
