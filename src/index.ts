@@ -5,6 +5,7 @@ import { AMQPClient } from "@cloudamqp/amqp-client";
 import { randomUUID } from "crypto";
 import colorize from "json-colorizer";
 import chalk from "chalk";
+import figlet from "figlet";
 
 async function main() {
   const program = new Command();
@@ -23,6 +24,7 @@ async function main() {
 
   const options = program.opts();
 
+  console.log(chalk.bold(figlet.textSync("rsnoop", { horizontalLayout: "full", font: "Basic" })));
   await runAmqpListener({
     useSSL: options.ssl ?? false,
     url: options.url ?? "localhost",

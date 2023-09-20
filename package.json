@@ -40,6 +40,7 @@
   "author": "Steve Crow",
   "license": "MIT",
   "devDependencies": {
+    "@types/figlet": "^1.5.6",
     "@types/node": "^20.6.3",
     "prettier": "^3.0.3",
     "ts-node": "^10.9.1",
@@ -49,6 +50,7 @@
     "@cloudamqp/amqp-client": "^3.1.1",
     "chalk": "^4.1.2",
     "commander": "^11.0.0",
+    "figlet": "^1.6.0",
     "json-colorizer": "^2.2.2"
   }
 }
