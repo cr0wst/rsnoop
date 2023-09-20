@@ -1,6 +1,6 @@
 {
   "name": "@cr0wst/rsnoop",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A CLI tool to inspect RabbitMQ messages",
   "main": "dist/index.js",
   "scripts": {
