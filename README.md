@@ -1,7 +1,3 @@
-Your README is well-structured and provides clear information about your project. I've made some minor improvements for clarity and style. Here's the revised version:
-
----
-
 # Rabbit Snoop
 
 [Rabbit Snoop (`rsnoop`)](https://www.npmjs.com/package/@cr0wst/rsnoop) is a CLI tool used for monitoring messages sent to [RabbitMQ](https://www.rabbitmq.com/) Exchanges.
