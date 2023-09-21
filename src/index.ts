@@ -8,23 +8,23 @@ import chalk from "chalk";
 import figlet from "figlet";
 
 async function main() {
+  console.log(chalk.bold(figlet.textSync("rsnoop", { horizontalLayout: "full", font: "Basic" })));
   const program = new Command();
   program
-    .version("1.0.2")
+    .version("1.1.0")
     .description("A CLI for snooping on Rabbit Exchanges")
     .option("-u, --url <url>", "The URL of the RabbitMQ server")
     .option("-p, --port <port>", "The port of the RabbitMQ server")
     .option("-U, --username <username>", "The username of the RabbitMQ server")
     .option("-P, --password <password>", "The password of the RabbitMQ server")
     .option("-v, --vhost <vhost>", "The vhost of the RabbitMQ server")
-    .option("-e, --exchange <exchange>", "The exchange to snoop on")
+    .option("-e, --exchange <exchanges...>", "The exchange to snoop on")
     .option("-r, --routing-key <routingKey>", "The routing key to snoop on")
     .option("-s, --ssl", "Use SSL")
     .parse(process.argv);
 
   const options = program.opts();
 
-  console.log(chalk.bold(figlet.textSync("rsnoop", { horizontalLayout: "full", font: "Basic" })));
   await runAmqpListener({
     useSSL: options.ssl ?? false,
     url: options.url ?? "localhost",
@@ -32,8 +32,7 @@ async function main() {
     password: options.password ?? "guest",
     port: options.port ?? options.ssl ? 5671 : 5672,
     vhost: options.vhost ?? "/",
-    exchange: options.exchange ?? "amq.topic",
-    routingKey: options.routingKey,
+    exchanges: options.exchange || ["amq.topic"],
   });
 }
 
@@ -54,14 +53,13 @@ async function runAmqpListener(rabbitConfig: any) {
 
   const queue = await channel.queue(queueName, { exclusive: true, autoDelete: true });
 
-  console.log(`Binding Queue: ${queueName} to Exchange: ${rabbitConfig.exchange}`);
-  await queue.bind(rabbitConfig.exchange, rabbitConfig.routingKey);
+  for (const exchange of rabbitConfig.exchanges) {
+    console.log(`Binding Queue: ${queueName} to Exchange: ${exchange}`);
+    await queue.bind(exchange);
+  }
 
   console.log("-".repeat(process.stdout.columns));
-  let messageCount = 0;
   await queue.subscribe({ noAck: true }, async (msg) => {
-    messageCount++;
-
     const body = isValidJson(msg.bodyString())
       ? JSON.parse(msg.bodyString() ?? "")
       : msg.bodyString();
@@ -69,7 +67,11 @@ async function runAmqpListener(rabbitConfig: any) {
       headers: msg.properties.headers,
       body,
     };
-    console.log(`${chalk.bold(`[Message ${messageCount}]`)} @ ${new Date().toISOString()}]`);
+    console.log(
+      `${chalk.bold(
+        `[${msg.exchange}] [Message ${msg.deliveryTag}]`
+      )} @ ${new Date().toISOString()}`
+    );
     console.log(`${colorize(JSON.stringify(result))}`);
   });
 }
