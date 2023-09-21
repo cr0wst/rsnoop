@@ -8,11 +8,11 @@
 
 ## Features
 
-- :pencil: **Zero Configuration**: `rsnoop` makes assumptions about your local RabbitMQ server, but you can override these assumptions with command line arguments.
+:pencil: **Zero Configuration**: `rsnoop` makes assumptions about your local RabbitMQ server, but you can override these assumptions with command line arguments.
 
-- :rainbow: **Colorized Output**: Messages are displayed with colorized output to enhance readability.
+:rainbow: **Colorized Output**: Messages are displayed with colorized output to enhance readability.
 
-- :broom: **Cleans Up After Itself**: `rsnoop` will clean up any temporary queues it created when it exits.
+:broom: **Cleans Up After Itself**: `rsnoop` will clean up any temporary queues it created when it exits.
 
 ## Installation
 
