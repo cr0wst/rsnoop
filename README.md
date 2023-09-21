@@ -45,6 +45,12 @@ To connect to a remote server, use the following command:
 rsnoop -e exchange_to_listen_to
 ```
 
+If you specify multiple exchanges, then the temporary queue will bind to all of them:
+
+```bash
+rsnoop -e exchange_one exchange_two
+```
+
 ## Issues
 
 Please report any issues by opening a [Github Issue](https://github.com/cr0wst/rsnoop/issues/new).
