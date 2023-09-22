@@ -2,7 +2,7 @@
 
 [Rabbit Snoop (`rsnoop`)](https://www.npmjs.com/package/@cr0wst/rsnoop) is a CLI tool used for monitoring messages sent to [RabbitMQ](https://www.rabbitmq.com/) Exchanges.
 
-![Screenshot of `rsnoop` in action](https://github.com/cr0wst/rsnoop/blob/main/rsnoop-example.png?raw=true)
+![Screenshot of `rsnoop` in action](https://raw.githubusercontent.com/cr0wst/rsnoop/f8ae10fe29638f832ba97dd4c5815e58ab03a4c9/rsnoop-example.png)
 
 > :exclamation: This tool is currently a work-in-progress and may undergo drastic changes in the future.
 
