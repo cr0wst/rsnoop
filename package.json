@@ -1,6 +1,6 @@
 {
   "name": "@cr0wst/rsnoop",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "A CLI tool to inspect RabbitMQ messages",
   "main": "dist/index.js",
   "repository": {
@@ -44,6 +44,7 @@
   "author": "Steve Crow",
   "license": "MIT",
   "devDependencies": {
+    "@types/blessed": "^0.1.23",
     "@types/figlet": "^1.5.6",
     "@types/node": "^20.6.3",
     "prettier": "^3.0.3",
@@ -52,6 +53,7 @@
   },
   "dependencies": {
     "@cloudamqp/amqp-client": "^3.1.1",
+    "blessed": "^0.1.81",
     "chalk": "^4.1.2",
     "commander": "^11.0.0",
     "figlet": "^1.6.0",
