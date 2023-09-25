@@ -1,7 +1,5 @@
-import blessed from "blessed";
+import blessed from "neo-blessed";
 import colorize from "json-colorizer";
-import figlet from "figlet";
-import { isValidJson } from "./utils";
 
 // The screen object is the root node
 const screen = blessed.screen({
