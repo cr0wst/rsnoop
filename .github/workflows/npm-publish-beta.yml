@@ -17,6 +17,8 @@ jobs:
           node-version: 16
           registry-url: https://registry.npmjs.org/
       - run: npm ci
+      - run: git config --global user.name "Github Actions"
+      - run: git config --global user.email "github-actions@github.com"
       - run: npm version $(node -p "require('./package.json').version")-beta.${{ github.sha}}
       - run: npm run build
       - run: npm publish --tag beta
